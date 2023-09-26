@@ -27,17 +27,40 @@ def article_content(request):
 
 def get_index_page (request):
     all_article = Article.objects.all()
-    return render(request,'blog/index.html',
+    return render(request, 'blog/index.html',
                   {
                       'article_list': all_article
                   }
                   )
-    pass
-def get_detail_page (request):
+
+def get_detail_page (request, article_id):
     all_article = Article.objects.all()
-    return render(request,'blog/detail.html',
+    cur_article = None
+    previous_index = 0
+    next_index = 0
+    previous_article = None
+    next_article = None
+    for index, article in enumerate(all_article):
+        if index == 0:
+            previous_index = 0
+            next_index = index + 1
+        elif index == len(all_article) - 1:
+            previous_index = index - 1
+            next_index = index
+        else:
+            previous_index = index - 1
+            next_index = index + 1
+        if article.article_id == article_id:
+            cur_article = article
+            previous_article = all_article[previous_index]
+            next_article = all_article[next_index]
+            break
+    section_list = cur_article.content.split('\n')
+    return render(request, 'blog/detail.html',
                   {
-                      'article_list': all_article
+                      'cur_article': cur_article,
+                      'section_list': section_list,
+                      'previous_article': previous_article,
+                      'next_article': next_article
                   }
                   )
-    pass

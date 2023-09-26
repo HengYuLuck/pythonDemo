@@ -15,15 +15,20 @@
 <div class="container page-header">
     <h1>三小时入门Django Web框架</h1>
 </div>
-<div class="container page-body">
-    <div class="col-md-9" role="main">
-        <div class="body-main">
-            <div>
-                <p>当年明月在，曾照彩云归</p>
-                <p></p>
-            </div>
-        </div>
+<div class="container body-main">
+    <div>
+        {% for section in section_list %}
+        <p>{{ section }}</p>
+        {% endfor %}
     </div>
+</div>
+<div>
+    <nav aria-label="...">
+        <ul class="pager">
+            <li><a href="/blog/detail/{{ previous_article.article_id}}">上一篇:{{ previous_article.title }}</a></li>
+            <li><a href="/blog/detail/{{ next_article.article_id}}">下一篇: {{ next_article.title }}</a></li>
+        </ul>
+    </nav>
 </div>
 </body>
 <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"
