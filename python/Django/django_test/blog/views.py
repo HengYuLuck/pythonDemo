@@ -24,3 +24,20 @@ def article_content(request):
         return HttpResponse(return_str, content_type='text/html')
     else:
         return HttpResponse("No articles found.", content_type='text/html')
+
+def get_index_page (request):
+    all_article = Article.objects.all()
+    return render(request,'blog/index.html',
+                  {
+                      'article_list': all_article
+                  }
+                  )
+    pass
+def get_detail_page (request):
+    all_article = Article.objects.all()
+    return render(request,'blog/detail.html',
+                  {
+                      'article_list': all_article
+                  }
+                  )
+    pass
